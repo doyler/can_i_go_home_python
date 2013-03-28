@@ -19,7 +19,7 @@ if not subprocess.check_output('git rev-parse --abbrev-ref HEAD', stderr=subproc
 print 'Traveling back in time to the founding of Github! (actually, just a year.)'
 start_date = datetime.datetime.now() - datetime.timedelta(days=365)
 #end_date = datetime.datetime.now() + datetime.timedelta(days=1)
-end_date = datetime.datetime.now() + datetime.timedelta(days=360)
+end_date = datetime.datetime.now() - datetime.timedelta(days=360)
 
 def daterange():
     for n in range(int ((end_date - start_date).days)):
