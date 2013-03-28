@@ -19,7 +19,8 @@ if not subprocess.check_output('git rev-parse --abbrev-ref HEAD', stderr=subproc
 
 print 'Traveling back in time to the founding of Github! (actually, just a year.)'
 start_date = datetime.datetime.now() - datetime.timedelta(days=365)
-end_date = datetime.datetime.now() + datetime.timedelta(days=1)
+#end_date = datetime.datetime.now() + datetime.timedelta(days=1)
+end_date = datetime.datetime.now() - datetime.timedelta(days=360)
 
 def daterange():
     for n in range(int ((end_date - start_date).days)):
@@ -38,9 +39,12 @@ for i, single_date in enumerate(daterange()):
         f.write(random.choice(messages))        
 
     t = (single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds() + 14400 + random.randint(0,57600)
-    subprocess.check_output('env GIT_COMMITTER_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
-    subprocess.check_output('env GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
-    subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
+    os.popen('set GIT_COMMITTER_DATE=\'{:.2f}\''.format(float(t))).read()
+    os.popen('set GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t))).read()
+    #os.system('set GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)))
+    #print subprocess.check_output('set GIT_COMMITTER_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
+    #print subprocess.check_output('set GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
+    print subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
     print "\r\nProving your worth with commits in " + single_date.strftime("%B, %Y") + "..."
 
 os.remove("msg.txt")
