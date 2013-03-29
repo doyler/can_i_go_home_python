@@ -3,7 +3,6 @@ import os
 import random
 import subprocess
 
-#OMG PLZ SEND PULL REQUESTS WITH MORE AWESOME MSGS
 messages = [
   "My kid's appointment at the pediatrician can wait, I need to get this commit in.",
   "Sorry honey, I need to keep my streak going - we'll have sex tomorrow!",
@@ -15,12 +14,12 @@ messages = [
 rr = "Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you"
 
 if not subprocess.check_output('git rev-parse --abbrev-ref HEAD', stderr=subprocess.STDOUT).strip() == 'master':
-    raise Exception('plz run from master, kthx')
+    raise Exception('Please run this from the master branch.')
 
 print 'Traveling back in time to the founding of Github! (actually, just a year.)'
 start_date = datetime.datetime.now() - datetime.timedelta(days=365)
 #end_date = datetime.datetime.now() + datetime.timedelta(days=1)
-end_date = datetime.datetime.now() - datetime.timedelta(days=360)
+end_date = datetime.datetime.now() + datetime.timedelta(days=360)
 
 def daterange():
     for n in range(int ((end_date - start_date).days)):
@@ -33,19 +32,13 @@ for i, single_date in enumerate(daterange()):
         str = extra + str
 
     with open('self_worth.txt', 'a') as f:
-        f.write(str)
-
-    os.popen('git add .').read()
-
-    with open('msg.txt', 'w') as f:
-        f.write(random.choice(messages))        
+        f.write(str)    
 
     t = (single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds() + 14400 + random.randint(0,57600)
-    os.popen('set GIT_COMMITTER_DATE=\"{:.2f}\"'.format(float(t))).read()
-    os.popen('set GIT_AUTHOR_DATE=\"{:.2f}\"'.format(float(t))).read()
-    subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
+    os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
+    os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
+    os.popen('git add .').read()
+    subprocess.call('git commit -q -m \"' + random.choice(messages) + '\"', stderr=subprocess.STDOUT)
     print "\r\nProving your worth with commits in " + single_date.strftime("%B, %Y") + "..."
-
-os.remove("msg.txt")
 
 print "\n\nNow show the world you are worth the physical space your body occupies - PUSH TO GITHUB! (`git push origin master`)"
