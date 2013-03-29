@@ -38,6 +38,7 @@ for i, single_date in enumerate(daterange()):
     os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
     os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
     os.popen('git add .').read()
+    print 'git commit -q -m \"' + random.choice(messages) + '\"'
     subprocess.call('git commit -q -m \"' + random.choice(messages) + '\"', stderr=subprocess.STDOUT)
     print "\r\nProving your worth with commits in " + single_date.strftime("%B, %Y") + "..."
 
