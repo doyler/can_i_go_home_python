@@ -8,7 +8,7 @@ messages = [
    " commit in."),
   "Sorry honey, I need to keep my streak going - we'll have sex tomorrow!",
   "This commit brought to you by my privilege.",
-  "My employer lets me use work time to contribute to open source."
+  "My employer lets me use work time to contribute to open source.",
   "The dog ate my commit."
 ]
 
