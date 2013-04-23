@@ -35,8 +35,8 @@ for i, single_date in enumerate(daterange()):
     if i != 0:
         str = extra + str
 
-    #with open("self_worth.txt", "a") as f:
-        #f.write(str)    
+    with open("self_worth.txt", "a") as f:
+        f.write(str)    
 
     t = ((single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds()
          + 14400 + random.randint(0,57600))
