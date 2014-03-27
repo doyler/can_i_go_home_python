@@ -42,7 +42,7 @@ for single_date in daterange():
     t = (single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds() + 14400 + random.randint(0,57600)
     subprocess.check_output('git filter-branch -f --env-filter \"GIT_COMMITTER_DATE=\'{:.2f}\';\"'.format(float(t)), stderr=subprocess.STDOUT)
     subprocess.check_output('git filter-branch -f --env-filter \"GIT_AUTHOR_DATE=\'{:.2f}\';\"'.format(float(t)), stderr=subprocess.STDOUT)
-    subprocess.check_output('git commit -q -F msg.txt -- self_worth.txt', stderr=subprocess.STDOUT)
+    print subprocess.check_output('git commit -q -F msg.txt -- self_worth.txt', stderr=subprocess.STDOUT)
     i += 1
     print "\r\nProving your worth with commits in " + d.strftime("%B, %Y") + "..."
 
