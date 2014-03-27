@@ -41,7 +41,6 @@ for i, single_date in enumerate(daterange()):
     subprocess.check_output('env GIT_COMMITTER_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
     subprocess.check_output('env GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
     subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
-    i += 1
     print "\r\nProving your worth with commits in " + single_date.strftime("%B, %Y") + "..."
 
 os.remove("msg.txt")
