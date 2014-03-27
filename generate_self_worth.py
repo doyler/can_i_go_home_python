@@ -16,7 +16,7 @@ rr = "Never gonna give you up Never gonna let you down Never gonna run around an
 
 if not subprocess.check_output('git rev-parse --abbrev-ref HEAD', stderr=subprocess.STDOUT).strip() == 'master':
     raise Exception('plz run from master, kthx')
-subprocess.check_output('git reset --hard refs/heads/master', stderr=subprocess.STDOUT)
+#subprocess.check_output('git reset --hard refs/heads/genesis')
 
 print 'Traveling back in time to the founding of Github! (actually, just a year.)'
 start_date = datetime.datetime.now() - datetime.timedelta(days=365)
@@ -36,13 +36,10 @@ for single_date in daterange():
     with open('self_worth.txt', 'a') as f:
         f.write(str)
 
-    with open('msg.txt', 'w') as f:
-        f.write(random.choice(messages))
-
     t = (single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds() + 14400 + random.randint(0,57600)
     subprocess.check_output('git filter-branch -f --env-filter \"GIT_COMMITTER_DATE=\'{:.2f}\';\"'.format(float(t)), stderr=subprocess.STDOUT)
     subprocess.check_output('git filter-branch -f --env-filter \"GIT_AUTHOR_DATE=\'{:.2f}\';\"'.format(float(t)), stderr=subprocess.STDOUT)
-    print subprocess.check_output('git commit -q -F msg.txt -- self_worth.txt', stderr=subprocess.STDOUT)
+    print subprocess.check_output('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
     i += 1
     print "\r\nProving your worth with commits in " + d.strftime("%B, %Y") + "..."
 
