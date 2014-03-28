@@ -35,18 +35,15 @@ for i, single_date in enumerate(daterange()):
     with open('self_worth.txt', 'a') as f:
         f.write(str)
 
+    os.popen('git add .').read()
+
     with open('msg.txt', 'w') as f:
         f.write(random.choice(messages))        
 
     t = (single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds() + 14400 + random.randint(0,57600)
-    print 'set GIT_COMMITTER_DATE=\"{:.2f}\"'.format(float(t))
-    print os.popen('set GIT_COMMITTER_DATE=\"{:.2f}\"'.format(float(t))).read()
-    print os.popen('set GIT_AUTHOR_DATE=\"{:.2f}\"'.format(float(t))).read()
-    os.popen('git add .').read()
-    #os.system('set GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)))
-    #print subprocess.check_output('set GIT_COMMITTER_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
-    #print subprocess.check_output('set GIT_AUTHOR_DATE=\'{:.2f}\''.format(float(t)), stderr=subprocess.STDOUT)
-    #subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
+    os.popen('set GIT_COMMITTER_DATE=\"{:.2f}\"'.format(float(t))).read()
+    os.popen('set GIT_AUTHOR_DATE=\"{:.2f}\"'.format(float(t))).read()
+    subprocess.call('git commit -q -F msg.txt', stderr=subprocess.STDOUT)
     print "\r\nProving your worth with commits in " + single_date.strftime("%B, %Y") + "..."
 
 os.remove("msg.txt")
