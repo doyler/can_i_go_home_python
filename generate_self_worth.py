@@ -29,24 +29,29 @@ def daterange():
     for n in range(int ((end_date - start_date).days)):
         yield start_date + datetime.timedelta(n)
 
-for i, single_date in enumerate(daterange()):
-    str = rr.split(" ")[i % 34]
-    extra = "\n" if i % 34 == 0 else " "
-    if i != 0:
-        str = extra + str
+def main():
+    for i, single_date in enumerate(daterange()):
+        strPart = rr.split(" ")[i % 34]
+        extra = "\n" if i % 34 == 0 else " "
+        if i != 0:
+            strPart = extra + strPart
 
-    with open("self_worth.txt", "a") as f:
-        f.write(str)    
+        with open("self_worth.txt", "a") as f:
+            f.write(strPart)    
 
-    t = ((single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds()
-         + 14400 + random.randint(0,57600))
-    os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
-    os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
-    subprocess.call("git add .", stderr=subprocess.STDOUT)
-    subprocess.call("git commit -q -m \"" + random.choice(messages) + "\"",
-                    stderr=subprocess.STDOUT)
-    print ("\r\nProving your worth with commit on " +
-           single_date.strftime("%B %d, %Y") + "...")
+        t = ((single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds()
+             + 14400 + random.randint(0,57600))
+        os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
+        os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
+        subprocess.call("git add .", stderr=subprocess.STDOUT)
+        subprocess.call("git commit -q -m \"" + random.choice(messages) + "\"",
+                        stderr=subprocess.STDOUT)
+        print ("\r\nProving your worth with commit on " +
+               single_date.strftime("%B %d, %Y") + "...")
 
-print ("\r\nNow show the world you are worth the physical space your body"
-       " occupies - PUSH TO GITHUB! (`git push origin master`)")
+    print ("\r\nNow show the world you are worth the physical space your body"
+           " occupies - PUSH TO GITHUB! (`git push origin master`)")
+
+if __name__=='__main__':
+	main()
+
