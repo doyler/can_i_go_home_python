@@ -22,7 +22,8 @@ if not subprocess.check_output('git rev-parse --abbrev-ref HEAD',
 
 print ("Traveling back in time to the founding of Github! (actually, just"
        " a year.)")
-start_date = datetime.datetime.now() - datetime.timedelta(days=input('How many days to go back:'))
+start_date = datetime.datetime.now() - datetime.timedelta(
+    days=input('How many days would you like to go back in time? '))
 end_date = datetime.datetime.now() + datetime.timedelta(days=1)
 
 def daterange():
@@ -39,8 +40,9 @@ def main():
         with open("self_worth.txt", "a") as f:
             f.write(strPart)    
 
-        t = ((single_date - datetime.datetime.utcfromtimestamp(0)).total_seconds()
-             + 14400 + random.randint(0,57600))
+        t = ((single_date -
+              datetime.datetime.utcfromtimestamp(0)).total_seconds() +
+             14400 + random.randint(0,57600))
         os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
         os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
         subprocess.call("git add .", stderr=subprocess.STDOUT)
