@@ -3,15 +3,6 @@ import os
 import random
 import subprocess
 
-messages = [
-  ("My kid's appointment at the pediatrician can wait, I need to get this"
-   " commit in."),
-  "Sorry honey, I need to keep my streak going - we'll have sex tomorrow!",
-  "This commit brought to you by my privilege.",
-  "My employer lets me use work time to contribute to open source.",
-  "The dog ate my commit."
-]
-
 rr = ("Never gonna give you up Never gonna let you down Never gonna run around"
       " and desert you Never gonna make you cry Never gonna say goodbye Never"
       " gonna tell a lie and hurt you")
@@ -26,11 +17,25 @@ start_date = datetime.datetime.now() - datetime.timedelta(
     days=input('How many days would you like to go back in time? '))
 end_date = datetime.datetime.now() + datetime.timedelta(days=1)
 
+def getFortunes():
+    fp = open('fortunes.txt', 'r')
+    fortunes = fp.read()
+    messages = []
+    
+    for fortune in fortunes.split('\n%\n'):
+        if len(fortune) <= 50:
+            messages.append(fortune)
+            
+    fp.close()
+    return messages
+
 def daterange():
     for n in range(int ((end_date - start_date).days)):
         yield start_date + datetime.timedelta(n)
 
 def main():
+    messages = getFortunes()
+    
     for i, single_date in enumerate(daterange()):
         strPart = rr.split(" ")[i % 34]
         extra = "\n" if i % 34 == 0 else " "
@@ -56,4 +61,3 @@ def main():
 
 if __name__=='__main__':
 	main()
-
