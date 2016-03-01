@@ -11,6 +11,8 @@ if not subprocess.check_output('git rev-parse --abbrev-ref HEAD',
                                stderr=subprocess.STDOUT).strip() == 'master':
     raise Exception('Please run this from the master branch.')
 
+subprocess.call("git pull") # Update the local repo to prevent conflicts
+	
 print ("To understand our repo's future, we have to go back in time!")
 start_date = datetime.datetime.now() - datetime.timedelta(
     days=input('How many days would you like to go back in time? '))
