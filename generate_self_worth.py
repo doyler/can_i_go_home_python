@@ -44,11 +44,12 @@ def main():
             strPart = extra + strPart
 
         with open("self_worth.txt", "a") as f:
-            f.write(strPart)    
+            f.write(strPart) 
 
-        t = ((single_date -
-              datetime.datetime.utcfromtimestamp(0)).total_seconds() +
-             14400 + random.randint(0,57600))
+        numDays = (single_date - datetime.datetime.utcfromtimestamp(0)).days
+        numSeconds = numDays * 86400
+        
+        t = numSeconds + random.randint(0,72000) # Random time between 0h-20h
         os.putenv("GIT_COMMITTER_DATE", "{:.2f}".format(float(t)))
         os.putenv("GIT_AUTHOR_DATE", "{:.2f}".format(float(t)))    
         subprocess.call("git add .", stderr=subprocess.STDOUT)
