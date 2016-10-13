@@ -59,7 +59,7 @@ def main():
                single_date.strftime("%B %d, %Y") + "...")
 
     print ("\r\nNow show the world you are worth the physical space your body"
-           " occupies - PUSH TO GITHUB! (`git push origin master`)")
+           " occupies - PUSH TO GITHUB! (`git push origin master`)\n")
 
 if __name__=='__main__':
 	main()
