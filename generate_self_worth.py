@@ -7,15 +7,17 @@ rr = ("Never gonna give you up Never gonna let you down Never gonna run around"
       " and desert you Never gonna make you cry Never gonna say goodbye Never"
       " gonna tell a lie and hurt you")
 
+"""
 if not subprocess.check_output('git rev-parse --abbrev-ref HEAD',
                                stderr=subprocess.STDOUT).strip() == 'master':
     raise Exception('Please run this from the master branch.')
+"""
 
 subprocess.call("git pull") # Update the local repo to prevent conflicts
 	
-print ("To understand our repo's future, we have to go back in time!")
+print("To understand our repo's future, we have to go back in time!")
 start_date = datetime.datetime.now() - datetime.timedelta(
-    days=input('How many days would you like to go back in time? '))
+    days = eval(input('How many days would you like to go back in time? ')))
 end_date = datetime.datetime.now() + datetime.timedelta(days=1)
 
 def getFortunes():
@@ -55,10 +57,10 @@ def main():
         subprocess.call("git add .", stderr=subprocess.STDOUT)
         subprocess.call("git commit -q -m \"" + random.choice(messages) + "\"",
                         stderr=subprocess.STDOUT)
-        print ("\r\nProving your worth with commit on " +
+        print("\r\nProving your worth with commit on " +
                single_date.strftime("%B %d, %Y") + "...")
 
-    print ("\r\nNow show the world you are worth the physical space your body"
+    print("\r\nNow show the world you are worth the physical space your body"
            " occupies - PUSH TO GITHUB! (`git push origin master`)\n")
 
 if __name__=='__main__':
